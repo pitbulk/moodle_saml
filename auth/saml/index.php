@@ -81,6 +81,11 @@ define('SAML_INTERNAL', 1);
         $urltogo .= '/';
     }
 
+     // set return rul from wantsurl
+     If(isset($_REQUEST['wantsurl'])) {
+        $urltogo = $_REQUEST['wantsurl'];
+     }
+	
     // Get the plugin config for saml
     $pluginconfig = get_config('auth/saml');
 

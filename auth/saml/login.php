@@ -7,6 +7,13 @@ global $CFG, $PAGE, $OUTPUT;
 //HTTPS is required in this page when $CFG->loginhttps enabled
 $PAGE->https_required();
 
+// get wantsurl from session and pass to the samlUrl
+$samlUrl = "index.php";
+if(isset($SESSION->wantsurl)) {
+    $samlUrl = $samlUrl . "?wantsurl=" . urlencode($SESSION->wantsurl);
+}
+
+//redirect($samlUrl);
 
 $context = get_context_instance(CONTEXT_SYSTEM);
 $PAGE->set_url("$CFG->httpswwwroot/auth/saml/login.php");
@@ -55,7 +62,7 @@ echo '<center>';
 
 if (in_array('saml', $authsequence)){
     if (isset($saml_config->samllogoimage) && $saml_config->samllogoimage != NULL) {
-        echo '<a href="index.php"><img src="'.$saml_config->samllogoimage.'" border="0" alt="SAML login" ></a>';
+        echo '<a href="' . $samlUrl . '"><img src="'.$saml_config->samllogoimage.'" border="0" alt="SAML login" ></a>';
     }
     if (isset($saml_config->samllogoinfo)) {
         echo "<div class='desc'>$saml_config->samllogoinfo</div>";
