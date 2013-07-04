@@ -13,7 +13,13 @@ if(isset($SESSION->wantsurl)) {
     $samlUrl = $samlUrl . "?wantsurl=" . urlencode($SESSION->wantsurl);
 }
 
-//redirect($samlUrl);
+// if autologin is enabled redirect to the idp without showing the login form
+$saml_config = get_config('auth/saml');
+if(isset($saml_config->autologin)  && $saml_config->autologin)
+{
+	header('Location: '.$samlUrl);
+	exit;
+}
 
 $context = get_context_instance(CONTEXT_SYSTEM);
 $PAGE->set_url("$CFG->httpswwwroot/auth/saml/login.php");
