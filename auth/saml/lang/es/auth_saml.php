@@ -40,6 +40,9 @@ $string['auth_saml_logo_path_description'] = 'Ruta de la imagen para el botón d
 $string['auth_saml_logo_info'] = 'Descripción del login de SAML';
 $string['auth_saml_logo_info_description'] = 'Descripción que se muestra a continuación del botón de inicio de sesión del SAML';
 
+$string['auth_saml_autologin'] = 'SAML automatic login';
+$string['auth_saml_autologin_description'] = 'Automatically redirect to SAML idP without showing a login form';
+
 $string['auth_saml_ignoreinactivecourses'] = 'Ignorar Cursos Inactivos';
 $string['auth_saml_ignoreinactivecourses_description'] = "Si no está activado el plugin dará de baja a los cursos 'inactivos'";
 
