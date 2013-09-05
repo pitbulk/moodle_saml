@@ -190,6 +190,10 @@ define('SAML_INTERNAL', 1);
             saml_hook_post_user_created($USER);
         }
 
+        if (isset($SESSION->wantsurl) && !empty($SESSION->wantsurl)) {
+             $urltogo = $SESSION->wantsurl;        	
+        }
+
         $USER->loggedin = true;
         $USER->site = $CFG->wwwroot;
         set_moodle_cookie($USER->username);
