@@ -127,8 +127,8 @@ class auth_plugin_saml extends auth_plugin_base {
     function loginpage_hook() {
 
 	    global $CFG;
-
-        if (empty($CFG->alternateloginurl)) {
+	
+        if (empty($CFG->alternateloginurl) && !($_GET['saml'] === 'false')) {
             $CFG->alternateloginurl = $CFG->wwwroot.'/auth/saml/login.php';
         }
 
@@ -346,6 +346,9 @@ class auth_plugin_saml extends auth_plugin_base {
 	    if (!isset ($config->samllogoinfo)) {
 	        $config->samllogoinfo = 'SAML login';
 	    }
+		if (!isset ($config->autologin)) { 
+	        $config->autologin = false; 
+	    }
 	    if (!isset ($config->samllogfile)) {
 	        $config->samllogfile = '';
 	    }
@@ -371,6 +374,7 @@ class auth_plugin_saml extends auth_plugin_base {
 	        $config->externalrolemappingsql = ''; 
 	    }
 
+
         // Save saml settings in a file        
     	$saml_param_encoded = json_encode($saml_param);
         file_put_contents(dirname(__FILE__) . '/saml_config.php', $saml_param_encoded);
@@ -386,6 +390,7 @@ class auth_plugin_saml extends auth_plugin_base {
 	    set_config('samlcourses',     $config->samlcourses,	'auth/saml');
 	    set_config('samllogoimage',   $config->samllogoimage,	'auth/saml');
 	    set_config('samllogoinfo',    $config->samllogoinfo,	'auth/saml');
+		set_config('autologin',    $config->autologin,	'auth/saml');
 	    set_config('samllogfile',         $config->samllogfile,	'auth/saml');
 	    set_config('samlhookfile',        $config->samlhookfile,	'auth/saml');
 	    set_config('moodlecoursefieldid',   $config->moodlecoursefieldid,   'auth/saml');

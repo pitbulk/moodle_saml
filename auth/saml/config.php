@@ -81,6 +81,9 @@
     if (!isset ($config->samllogoinfo)) {
         $config->samllogoinfo = 'SAML login';
     }
+    if (!isset ($config->autologin)) {
+        $config->autologin = false;
+    }
     if (!isset ($config->samllogfile)) {
         $config->samllogfile = '';
     }
@@ -193,6 +196,14 @@ if (isset($err) && !empty($err)) {
        <textarea name="samllogoinfo" type="text" size="30" rows="5" cols="30"><?php echo $config->samllogoinfo; ?></textarea>
     </td>
     <td><?php print_string("auth_saml_logo_info_description", "auth_saml"); ?></td>
+</tr>
+
+<tr valign="top">
+    <td class="right"><?php print_string("auth_saml_autologin", "auth_saml"); ?>:</td>
+    <td>
+        <input name="autologin" type="checkbox" <?php if($config->autologin) echo 'checked="CHECKED"'; ?> />
+    </td>
+    <td><?php print_string("auth_saml_autologin_description", "auth_saml"); ?></td>
 </tr>
 
 <tr valign="top">

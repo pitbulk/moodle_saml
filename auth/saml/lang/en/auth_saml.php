@@ -40,6 +40,9 @@ $string['auth_saml_logo_path_description'] = 'Image path for the SAML login butt
 $string['auth_saml_logo_info'] = 'SAML login description';
 $string['auth_saml_logo_info_description'] = 'Description that will be shown below the SAML login button';
 
+$string['auth_saml_autologin'] = 'SAML automatic login';
+$string['auth_saml_autologin_description'] = 'Automatically redirect to SAML idP without showing a login form';
+
 $string['auth_saml_ignoreinactivecourses'] = 'Ignore Inactive Courses';
 $string['auth_saml_ignoreinactivecourses_description'] = "If not checked the plugin will unenroll the 'inactive' courses";
 
