@@ -84,25 +84,25 @@ class auth_plugin_saml extends auth_plugin_base {
     * Returns array containg attribute mappings between Moodle and Identity Provider.
     */
     function get_attributes() {
-	    $configarray = (array) $this->config;
+        $configarray = (array) $this->config;
 
-        if(isset($configarray->userfields)) {
-            $fields = $configarray->userfields;
+        if(isset($this->userfields)) {
+            $fields = $this->userfields;
         }
         else {
-        	$fields = array("firstname", "lastname", "email", "phone1", "phone2",
+            $fields = array("firstname", "lastname", "email", "phone1", "phone2",
 			    "department", "address", "city", "country", "description",
 			    "idnumber", "lang", "guid");
         }
 
-	    $moodleattributes = array();
-	    foreach ($fields as $field) {
-	        if (isset($configarray["field_map_$field"])) {
-		        $moodleattributes[$field] = $configarray["field_map_$field"];
-	        }
-	    }
+        $moodleattributes = array();
+        foreach ($fields as $field) {
+            if (isset($configarray["field_map_$field"])) {
+                $moodleattributes[$field] = $configarray["field_map_$field"];
+            }
+        }
 
-	    return $moodleattributes;
+        return $moodleattributes;
     }
 
     /**
