@@ -92,7 +92,7 @@ $do_update = empty($options['noupdate']);
 $config = get_config('auth/saml');
 if (!empty($config->syncusersfrom)) {
 	$otherauth = get_auth_plugin($config->syncusersfrom);
-	$otherauth->auth = 'saml';
+	$otherauth->authtype = 'saml';
 
 	$method = new ReflectionMethod($otherauth, 'sync_users');
 
