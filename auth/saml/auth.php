@@ -337,6 +337,9 @@ class auth_plugin_saml extends auth_plugin_base {
         if (!isset ($config->supportcourses)) {
 	        $config->supportcourses = 'nosupport';
 	    }
+	    if (!isset ($config->syncusersfrom)) {
+	        $config->syncusersfrom = '';
+	    }
 	    if (!isset ($config->samlcourses)) {
 	        $config->samlcourses = 'schacUserStatus';
 	    }
@@ -386,6 +389,7 @@ class auth_plugin_saml extends auth_plugin_base {
         // Save plugin settings
 	    set_config('username',	      $config->username,	'auth/saml');
 	    set_config('supportcourses',  $config->supportcourses,	'auth/saml');
+	    set_config('syncusersfrom',   $config->syncusersfrom,	'auth/saml');
 	    set_config('samlcourses',     $config->samlcourses,	'auth/saml');
 	    set_config('samllogoimage',   $config->samllogoimage,	'auth/saml');
 	    set_config('samllogoinfo',    $config->samllogoinfo,	'auth/saml');
