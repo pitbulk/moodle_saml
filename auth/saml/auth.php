@@ -84,25 +84,25 @@ class auth_plugin_saml extends auth_plugin_base {
     * Returns array containg attribute mappings between Moodle and Identity Provider.
     */
     function get_attributes() {
-        $configarray = (array) $this->config;
+	    $configarray = (array) $this->config;
 
         if(isset($this->userfields)) {
             $fields = $this->userfields;
         }
         else {
-            $fields = array("firstname", "lastname", "email", "phone1", "phone2",
+        	$fields = array("firstname", "lastname", "email", "phone1", "phone2",
 			    "department", "address", "city", "country", "description",
 			    "idnumber", "lang", "guid");
         }
 
-        $moodleattributes = array();
-        foreach ($fields as $field) {
-            if (isset($configarray["field_map_$field"])) {
-                $moodleattributes[$field] = $configarray["field_map_$field"];
-            }
-        }
+	    $moodleattributes = array();
+	    foreach ($fields as $field) {
+	        if (isset($configarray["field_map_$field"])) {
+		        $moodleattributes[$field] = $configarray["field_map_$field"];
+	        }
+	    }
 
-        return $moodleattributes;
+	    return $moodleattributes;
     }
 
     /**
@@ -127,7 +127,7 @@ class auth_plugin_saml extends auth_plugin_base {
     function loginpage_hook() {
 
 	    global $CFG;
-	
+
         if (empty($CFG->alternateloginurl) && !($_GET['saml'] === 'false')) {
             $CFG->alternateloginurl = $CFG->wwwroot.'/auth/saml/login.php';
         }
@@ -154,7 +154,7 @@ class auth_plugin_saml extends auth_plugin_base {
     * @param array $page An object containing all the data for this page.
     */
 
-    function config_form($config, &$err, $user_fields) {
+    function config_form($config, $err, $user_fields) {
 	    global $CFG, $DB;
 
         $dbman = $DB->get_manager();
@@ -188,7 +188,7 @@ class auth_plugin_saml extends auth_plugin_base {
      * A chance to validate form data, and last chance to
      * do stuff before it is inserted in config_plugin
      */
-    function validate_form(&$form, &$err) {
+    function validate_form($form, &$err) {
 
 	    if(!isset($form->auth_saml_db_reset) && !isset($form->initialize_roles)) {
 	        if (!isset ($form->samllib) || !file_exists($form->samllib.'/_autoload.php')) {
@@ -346,9 +346,9 @@ class auth_plugin_saml extends auth_plugin_base {
 	    if (!isset ($config->samllogoinfo)) {
 	        $config->samllogoinfo = 'SAML login';
 	    }
-		if (!isset ($config->autologin)) { 
-	        $config->autologin = false; 
-	    }
+	    if (!isset ($config->autologin)) { 
+            $config->autologin = false; 
+        }
 	    if (!isset ($config->samllogfile)) {
 	        $config->samllogfile = '';
 	    }
@@ -374,7 +374,6 @@ class auth_plugin_saml extends auth_plugin_base {
 	        $config->externalrolemappingsql = ''; 
 	    }
 
-
         // Save saml settings in a file        
     	$saml_param_encoded = json_encode($saml_param);
         file_put_contents(dirname(__FILE__) . '/saml_config.php', $saml_param_encoded);
@@ -390,7 +389,7 @@ class auth_plugin_saml extends auth_plugin_base {
 	    set_config('samlcourses',     $config->samlcourses,	'auth/saml');
 	    set_config('samllogoimage',   $config->samllogoimage,	'auth/saml');
 	    set_config('samllogoinfo',    $config->samllogoinfo,	'auth/saml');
-		set_config('autologin',    $config->autologin,	'auth/saml');
+	    set_config('autologin',       $config->autologin,  'auth/saml');
 	    set_config('samllogfile',         $config->samllogfile,	'auth/saml');
 	    set_config('samlhookfile',        $config->samlhookfile,	'auth/saml');
 	    set_config('moodlecoursefieldid',   $config->moodlecoursefieldid,   'auth/saml');

@@ -36,6 +36,8 @@
     if(file_exists('saml_config.php')) {
         $contentfile = file_get_contents('saml_config.php');
         $saml_param = json_decode($contentfile);    
+    } else {
+        $saml_param = new stdClass();
     }
 
     // Set to defaults if undefined

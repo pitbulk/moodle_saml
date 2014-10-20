@@ -17,11 +17,11 @@ if(isset($SESSION->wantsurl)) {
 $saml_config = get_config('auth/saml');
 if(isset($saml_config->autologin)  && $saml_config->autologin)
 {
-	header('Location: '.$samlUrl);
-	exit;
+       header('Location: '.$samlUrl);
+       exit;
 }
 
-$context = get_context_instance(CONTEXT_SYSTEM);
+$context = CONTEXT_SYSTEM::instance();
 $PAGE->set_url("$CFG->httpswwwroot/auth/saml/login.php");
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('login');

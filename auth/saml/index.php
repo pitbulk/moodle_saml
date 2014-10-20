@@ -52,13 +52,14 @@ define('SAML_INTERNAL', 1);
 
         global $CFG, $err, $PAGE, $OUTPUT;
         $PAGE->set_url('/auth/saml/index.php');
-        $PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
+        $PAGE->set_context(CONTEXT_SYSTEM::instance());
 
         $pluginconfig = get_config('auth/saml');
         $urltogo = $CFG->wwwroot;
         if($CFG->wwwroot[strlen($CFG->wwwroot)-1] != '/') {
             $urltogo .= '/';
         }
+
         $err['login'] = $e->getMessage();
         log_saml_error('Moodle SAML module:'. $err['login'], $pluginconfig->samllogfile);;
         saml_error($err['login'], $urltogo, $pluginconfig->samllogfile);
@@ -74,7 +75,7 @@ define('SAML_INTERNAL', 1);
     global $CFG, $USER, $SAML_COURSE_INFO, $SESSION, $err, $DB, $PAGE;
 
     $PAGE->set_url('/auth/saml/index.php');
-    $PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
+    $PAGE->set_context(CONTEXT_SYSTEM::instance());
 
     $urltogo = $CFG->wwwroot;
     if($CFG->wwwroot[strlen($CFG->wwwroot)-1] != '/') {
@@ -82,10 +83,10 @@ define('SAML_INTERNAL', 1);
     }
 
      // set return rul from wantsurl
-     If(isset($_REQUEST['wantsurl'])) {
+     if(isset($_REQUEST['wantsurl'])) {
         $urltogo = $_REQUEST['wantsurl'];
      }
-	
+
     // Get the plugin config for saml
     $pluginconfig = get_config('auth/saml');
 
