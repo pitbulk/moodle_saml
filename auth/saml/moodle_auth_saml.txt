@@ -63,6 +63,8 @@ form:
         - External: the plugin will use a tabla in an external database
         to map the courses in the next field with Moodle courses.
 
+     - Synchronize users from module: The SAML module does not have direct support for synchronizing users, because SAML does not allow querying for all users at once. However, your underlying identify provider might support it (LDAP does for example). This option lists all enabled plugins which have a `sync_users` function. This means that we will use that plugin's code to fetch the user data, but the users will be created with auth='saml'
+
      - SAML courses mapping: it is a SAML attribute that is mapped to Moodle
      courses data. By default, it is set to 'schacUserStatus'.
 
