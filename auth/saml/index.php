@@ -20,8 +20,6 @@ define('SAML_INTERNAL', 1);
             throw(new Exception('Moodle dataroot not found'));
 				}
 				
-				die(var_dump($CFG));
- 
         if(!file_exists($CFG->dataroot.'/saml_config.php')) {
             throw(new Exception('SAML config params are not set.'));
         }
