@@ -33,8 +33,8 @@
 
 
     // Get saml paramters stored in the saml_config.php
-    if(file_exists('saml_config.php')) {
-        $contentfile = file_get_contents('saml_config.php');
+    if(file_exists($CFG->dataroot.'/saml_config.php')) {
+        $contentfile = file_get_contents($CFG->dataroot.'/saml_config.php');
         $saml_param = json_decode($contentfile);    
     }
 
