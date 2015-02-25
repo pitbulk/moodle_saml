@@ -31,11 +31,12 @@
     require_once("courses.php");
     require_once("roles.php");
 
-
     // Get saml paramters stored in the saml_config.php
     if(file_exists($CFG->dataroot.'/saml_config.php')) {
         $contentfile = file_get_contents($CFG->dataroot.'/saml_config.php');
         $saml_param = json_decode($contentfile);    
+    } else {
+        $saml_param = new stdClass();
     }
 
     // Set to defaults if undefined
@@ -71,6 +72,9 @@
     }
     if (!isset ($config->supportcourses)) {
         $config->supportcourses = 'nosupport';
+    }
+    if (!isset ($config->syncusersfrom)) {
+        $config->syncusersfrom = '';
     }
     if (!isset ($config->samlcourses)) {
         $config->samlcourses = 'schacUserStatus';
@@ -246,6 +250,24 @@ if (isset($err) && !empty($err)) {
         </select>
     </td>
     <td><?php print_string("auth_saml_supportcourses_description", "auth_saml"); ?></td>
+</tr>
+
+<tr valign="top">
+    <td class="right"><?php print_string('auth_saml_syncusersfrom', 'auth_saml'); ?>:</td>
+    <td>
+        <select name="syncusersfrom">
+        <option name="none" value="">Disabled</option>
+        <?php
+            foreach (get_enabled_auth_plugins() as $name) {
+                $plugin = get_auth_plugin($name);
+                if (method_exists($plugin, 'sync_users')) {
+                    print '<option name="' . $name . '" value ="' . $name . '" ' . (($config->syncusersfrom == $name) ? 'selected="selected"' : '') . '>' . $name . '</option>';
+                }
+            }
+        ?>
+        </select>
+    </td>
+    <td><?php print_string("auth_saml_syncusersfrom_description", "auth_saml"); ?></td>
 </tr>
 
 <tr valign="top" class="required" id="samlcourses_tr" <?php echo ($config->supportcourses == 'nosupport'? 'style="display:none;"' : '') ?> >
