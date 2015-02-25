@@ -301,7 +301,6 @@ class auth_plugin_saml extends auth_plugin_base {
 	    }
 
 	    if(isset($config->initialize_roles)) {  
-	        global $CFG;
 	        $this->initialize_roles($DB, $err);
 	        header('Location: ' . $CFG->wwwroot . '/admin/auth_config.php?auth=saml#rolemapping');
 	        exit();
@@ -377,7 +376,7 @@ class auth_plugin_saml extends auth_plugin_base {
 
         // Save saml settings in a file        
     	$saml_param_encoded = json_encode($saml_param);
-        file_put_contents(dirname(__FILE__) . '/saml_config.php', $saml_param_encoded);
+      file_put_contents(dirname(__FILE__) . '/saml_config.php', $saml_param_encoded);
 
         // Also adding this parameters in database but no need it really.
 	    set_config('samllib',	      $saml_param->samllib,	'auth/saml');
