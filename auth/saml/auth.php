@@ -301,15 +301,14 @@ class auth_plugin_saml extends auth_plugin_base {
 	    }
 
 	    if(isset($config->initialize_roles)) {  
-	        global $CFG;
 	        $this->initialize_roles($DB, $err);
 	        header('Location: ' . $CFG->wwwroot . '/admin/auth_config.php?auth=saml#rolemapping');
 	        exit();
 	    }
 
-        // SAML parameters are in the config variable due all form data is there.
-        // We create a new variable and set the values there.
-        $saml_param = new stdClass();
+      // SAML parameters are in the config variable due all form data is there.
+      // We create a new variable and set the values there.
+      $saml_param = new stdClass();
 
 	    if (!isset ($config->samllib)) {
 	        $saml_param->samllib = '';
@@ -377,23 +376,25 @@ class auth_plugin_saml extends auth_plugin_base {
 	        $config->externalrolemappingsql = ''; 
 	    }
 
-        // Save saml settings in a file        
+      // Save saml settings in a file        
     	$saml_param_encoded = json_encode($saml_param);
-        file_put_contents(dirname(__FILE__) . '/saml_config.php', $saml_param_encoded);
 
-        // Also adding this parameters in database but no need it really.
+			//Place config-file in Moodle-data for future use. 
+      file_put_contents($CFG->dataroot.'/saml_config.php', $saml_param_encoded);
+
+	    // Also adding this parameters in database but no need it really.
 	    set_config('samllib',	      $saml_param->samllib,	'auth/saml');
 	    set_config('sp_source',  $saml_param->sp_source,	'auth/saml');
 	    set_config('dosinglelogout',  $saml_param->dosinglelogout,	'auth/saml');
 
-        // Save plugin settings
+      // Save plugin settings
 	    set_config('username',	      $config->username,	'auth/saml');
 	    set_config('supportcourses',  $config->supportcourses,	'auth/saml');
 	    set_config('syncusersfrom',   $config->syncusersfrom,	'auth/saml');
 	    set_config('samlcourses',     $config->samlcourses,	'auth/saml');
 	    set_config('samllogoimage',   $config->samllogoimage,	'auth/saml');
 	    set_config('samllogoinfo',    $config->samllogoinfo,	'auth/saml');
-	    set_config('autologin',       $config->autologin,  'auth/saml');
+			set_config('autologin',		    $config->autologin,	'auth/saml');
 	    set_config('samllogfile',         $config->samllogfile,	'auth/saml');
 	    set_config('samlhookfile',        $config->samlhookfile,	'auth/saml');
 	    set_config('moodlecoursefieldid',   $config->moodlecoursefieldid,   'auth/saml');
