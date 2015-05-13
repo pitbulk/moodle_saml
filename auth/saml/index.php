@@ -12,7 +12,7 @@ define('SAML_INTERNAL', 1);
         if(!file_exists('saml_config.php')) {
             throw(new Exception('SAML config params are not set.'));
         }
-		$contentfile = file_get_contents('saml_config.php');
+	$contentfile = file_get_contents('saml_config.php');
     	$saml_param = json_decode($contentfile);
 
         if(!file_exists($saml_param->samllib.'/_autoload.php')) {
@@ -189,6 +189,8 @@ define('SAML_INTERNAL', 1);
             $err['login'] = get_string("auth_saml_error_complete_user_data", "auth_saml", $username);
             saml_error($err['login'], '?logout', $pluginconfig->samllogfile);
         }
+
+        add_to_log(SITEID, "user", "login", "view.php?id=".$user->id."&course=".SITEID, $user->id, 0, $user->id);
 	
         $USER = complete_user_login($user);
 
