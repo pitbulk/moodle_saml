@@ -128,7 +128,7 @@ define('SAML_INTERNAL', 1);
             saml_error($err['login'], '?logout', $pluginconfig->samllogfile);
         }
         $username = $saml_attributes[$username_field][0];
-        $username = trim(textlib::strtolower($username));
+        $username = trim(core_text::strtolower($username));
 
         $saml_courses = array();
         if($pluginconfig->supportcourses != 'nosupport' && isset($pluginconfig->samlcourses)) {
