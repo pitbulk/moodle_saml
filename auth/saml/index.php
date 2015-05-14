@@ -12,7 +12,7 @@ define('SAML_INTERNAL', 1);
         if(!file_exists('saml_config.php')) {
             throw(new Exception('SAML config params are not set.'));
         }
-		$contentfile = file_get_contents('saml_config.php');
+	$contentfile = file_get_contents('saml_config.php');
     	$saml_param = json_decode($contentfile);
 
         if(!file_exists($saml_param->samllib.'/_autoload.php')) {
