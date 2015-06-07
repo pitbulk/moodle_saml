@@ -30,6 +30,12 @@ $PAGE->set_pagelayout('login');
 /// Define variables used in page
 $site = get_site();
 
+if (!empty($CFG->registerauth) or is_enabled_auth('none') or !empty($CFG->auth_instructions)) {
+    $show_instructions = true;
+} else {
+    $show_instructions = false;
+}
+
 $loginsite = get_string("loginsite");
 $PAGE->navbar->add($loginsite);
 
