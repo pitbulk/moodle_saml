@@ -20,11 +20,20 @@ define('SAML_INTERNAL', 1);
             throw(new Exception('Moodle dataroot not found'));
 				}
 				
-        if(!file_exists($CFG->dataroot.'/saml_config.php')) {
+        // Load the SAML config. Before version 2015061000 it is stored in the
+        // plugin root, but is now stored in dataroot. 
+        if (file_exists($CFG->dataroot.'/saml_config.php')) {
+            $contentfile = file_get_contents($CFG->dataroot.'/saml_config.php');
+        }
+        else if (file_exists('./saml_config.php')) {
+            // This user is logging in pending an upgrade from a version
+            // previous to 2015061000.
+            $contentfile = file_get_contents('./saml_config.php');
+        }
+        else {
             throw(new Exception('SAML config params are not set.'));
         }
 				//Get config from config-file placed in Moodledata
-				$contentfile = file_get_contents($CFG->dataroot.'/saml_config.php');
 				$saml_param = json_decode($contentfile);
 
         if(!file_exists($saml_param->samllib.'/_autoload.php')) {
