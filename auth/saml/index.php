@@ -9,16 +9,16 @@ define('SAML_INTERNAL', 1);
         // We read saml parameters from a config file instead from the database
         // due we can not operate with the moodle database without load all
         // moodle session issue.
-				//We need to get dataroot from CFG without loading moodle database
+        //We need to get dataroot from CFG without loading moodle database
 
-				$config = file_get_contents('../../config.php');
+        $config = file_get_contents('../../config.php');
 
-				$config = preg_replace('/\s+/', '', $config);
-				if(preg_match('/^.+?\$CFG\-\>dataroot=[\'"](.+?)[\'"];/', $config, $match)){
-					$CFG->dataroot = $match[1];
-				}else {
+        $config = preg_replace('/\s+/', '', $config);
+        if(preg_match('/^.+?\$CFG\-\>dataroot=[\'"](.+?)[\'"];/', $config, $match)){
+            $CFG->dataroot = $match[1];
+        } else {
             throw(new Exception('Moodle dataroot not found'));
-				}
+        }
 				
         // Load the SAML config. Before version 2015061000 it is stored in the
         // plugin root, but is now stored in dataroot. 
@@ -33,8 +33,9 @@ define('SAML_INTERNAL', 1);
         else {
             throw(new Exception('SAML config params are not set.'));
         }
-				//Get config from config-file placed in Moodledata
-				$saml_param = json_decode($contentfile);
+
+        //Get config from config-file placed in Moodledata
+        $saml_param = json_decode($contentfile);
 
         if(!file_exists($saml_param->samllib.'/_autoload.php')) {
             throw(new Exception('simpleSAMLphp lib loader file does not exist: '.$saml_param->samllib.'/_autoload.php'));
@@ -194,7 +195,7 @@ define('SAML_INTERNAL', 1);
 
         if (!$authorize_user) {
             $err['login'] = "<p>" . $authorize_error . "</p>";
-				    saml_error($err, '?logout', $pluginconfig->samllogfile);
+            saml_error($err, '?logout', $pluginconfig->samllogfile);
         }
         
         // Just passes time as a password. User will never log in directly to moodle with this password anyway or so we hope?
