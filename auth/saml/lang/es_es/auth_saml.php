@@ -1,5 +1,7 @@
 <?php
 
+$string['auth_saml_loginusing'] = 'Accede usando tu nombre de usuario y contraseña';
+
 $string['auth_samltitle']  = 'Autenticación SAML';
 $string['auth_samldescription'] = 'Autenticación SSO usando SimpleSAML';
 

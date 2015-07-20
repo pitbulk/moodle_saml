@@ -17,7 +17,8 @@ class enrol_saml_plugin extends enrol_plugin {
 
         if (empty($instance->name)) {
             if (!empty($instance->roleid) and $role = $DB->get_record('role', array('id'=>$instance->roleid))) {
-                $role = ' (' . role_get_name($role, get_context_instance(CONTEXT_COURSE, $instance->courseid)) . ')';
+                $context = context_course::instance($instance->courseid);
+                $role = ' (' . role_get_name($role, $context) . ')';
             } else {
                 $role = '';
             }
@@ -58,7 +59,7 @@ class enrol_saml_plugin extends enrol_plugin {
              throw new coding_exception('Invalid enrol instance type!');
         }
 
-        $context = get_context_instance(CONTEXT_COURSE, $instance->courseid);
+        $context = context_course::instance($instance->courseid);
         if (has_capability('enrol/saml:config', $context)) {
             $managelink = new moodle_url('/enrol/saml/edit.php', array('courseid'=>$instance->courseid, 'id'=>$instance->id));
             $instancesnode->add($this->get_instance_name($instance), $managelink, navigation_node::TYPE_SETTING);
@@ -76,7 +77,7 @@ class enrol_saml_plugin extends enrol_plugin {
         if ($instance->enrol !== 'saml') {
             throw new coding_exception('invalid enrol instance!');
         }
-        $context = get_context_instance(CONTEXT_COURSE, $instance->courseid);
+        $context = context_course::instance($instance->courseid);
 
         $icons = array();
 
@@ -100,7 +101,7 @@ class enrol_saml_plugin extends enrol_plugin {
     public function get_newinstance_link($courseid) {
         global $DB;
 
-        $context = get_context_instance(CONTEXT_COURSE, $courseid, MUST_EXIST);
+        $context = context_course::instance($courseid, MUST_EXIST);
 
         if (!has_capability('moodle/course:enrolconfig', $context) or !has_capability('enrol/saml:config', $context)) {
             return NULL;

@@ -1,6 +1,7 @@
 <?php
 
-include_once("../../config.php");
+include_once("/var/www/onelogindemo/moodle29/config.php");
+#include_once("../../config.php");
 
 global $CFG, $PAGE, $OUTPUT;
 
@@ -70,6 +71,8 @@ if (empty($CFG->xmlstrictheaders) and !empty($CFG->loginpasswordautocomplete)) {
 $saml_config = get_config('auth/saml');
 $authsequence = get_enabled_auth_plugins(true);
 
+$frm = data_submitted();
+
 echo '<center>';
 
 if (in_array('saml', $authsequence)){
@@ -86,7 +89,7 @@ echo '</center>';
       <div class="subcontent loginsub">
         <div class="desc">
           <?php
-            print_string("loginusing");
+            print_string("auth_saml_loginusing", "auth_saml");
             echo '<br/>';
             echo '('.get_string("cookiesenabled").')';
             echo $OUTPUT->help_icon('cookiesenabled');
@@ -103,7 +106,7 @@ echo '</center>';
           <div class="loginform">
             <div class="form-label"><label for="username"><?php print_string("username") ?></label></div>
             <div class="form-input">
-              <input type="text" name="username" id="username" size="15" value="<?php p($frm->username) ?>" />
+              <input type="text" name="username" id="username" size="15" value="<?php echo isset($frm->username)? $frm->username: ''; ?>" />
             </div>
             <div class="clearer"><!-- --></div>
             <div class="form-label"><label for="password"><?php print_string("password") ?></label></div>
@@ -115,7 +118,7 @@ echo '</center>';
             <div class="clearer"><!-- --></div>
               <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
               <div class="rememberpass">
-                  <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
+                  <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if (isset($frm->username)) {echo 'checked="checked"';} ?> />
                   <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
               </div>
               <?php } ?>

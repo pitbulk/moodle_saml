@@ -1,6 +1,6 @@
 <?php
 
-function saml_error($err, $urltogo=false, $logfile='') {
+function auth_saml_error($err, $urltogo=false, $logfile='') {
     global $CFG, $PAGE, $OUTPUT;
     
     if(!isset($CFG->debugdisplay) || !$CFG->debugdisplay) {
@@ -32,7 +32,7 @@ function saml_error($err, $urltogo=false, $logfile='') {
                     echo $messages;
                 }
                 $msg = 'Moodle SAML module: '.$key.': '.$messages;
-                log_saml_error($msg, $logfile);
+                auth_saml_log_error($msg, $logfile);
             }
             else {
                 foreach($messages as $message) {
@@ -40,7 +40,7 @@ function saml_error($err, $urltogo=false, $logfile='') {
                         echo $message.'<br>';
                     }
                     $msg = 'Moodle SAML module: '.$key.': '.$message;
-                    log_saml_error($msg, $logfile);
+                    auth_saml_log_error($msg, $logfile);
                 }
             }
             echo '<br>';
@@ -51,7 +51,7 @@ function saml_error($err, $urltogo=false, $logfile='') {
             echo $err;
         }
         $msg = 'Moodle SAML module: login: '.$err;
-        log_saml_error($msg, $logfile);
+        auth_saml_log_error($msg, $logfile);
     }
     if($urltogo!=false) {
         echo '</div>';
@@ -64,12 +64,12 @@ function saml_error($err, $urltogo=false, $logfile='') {
     }
 }
 
-function log_saml_error($msg, $logfile) {
+function auth_saml_log_error($msg, $logfile) {
     global $CFG;
     // 0 - message  is sent to PHP's system logger, using the Operating System's system logging mechanism or a file.
     // 3 - message  is appended to the file destination
     $destination = '';
-    $error_log_type = 0;    
+    $error_log_type = 0;
     if(isset($logfile) && !empty($logfile)) {
         if (substr($logfile, 0) == '/') {
             $destination = $logfile;
@@ -78,12 +78,12 @@ function log_saml_error($msg, $logfile) {
             $destination = $CFG->dataroot . '/' . $logfile;
         }
         $error_log_type = 3;
-        $msg = decorate_saml_log($msg);
+        $msg = auth_saml_decorate_log($msg);
     }
     error_log($msg, $error_log_type, $destination);
 }
 
 
-function decorate_saml_log($msg) {    
+function auth_saml_decorate_log($msg) {
     return $msg = date('D M d H:i:s  Y').' [client '.$_SERVER['REMOTE_ADDR'].'] [error] '.$msg."\r\n";
 }

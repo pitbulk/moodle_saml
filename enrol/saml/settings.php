@@ -47,7 +47,7 @@ if ($ADMIN->fulltree) {
         get_string('defaultperiod', 'enrol_saml'), get_string('defaultperiod_desc', 'enrol_saml'), 0, PARAM_INT));
 
     if (!during_initial_install()) {
-        $options = get_default_enrol_roles(get_context_instance(CONTEXT_SYSTEM));
+        $options = get_default_enrol_roles(context_system::instance());
         $student = get_archetype_roles('student');
         $student = reset($student);
         $settings->add(new admin_setting_configselect('enrol_saml/roleid',

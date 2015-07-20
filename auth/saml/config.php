@@ -32,9 +32,12 @@
     require_once("roles.php");
 
     // Get saml paramters stored in the saml_config.php
-    if(file_exists('saml_config.php')) {
+    if(file_exists($CFG->dataroot.'/saml_config.php')) {
+        $contentfile = file_get_contents($CFG->dataroot.'/saml_config.php');
+        $saml_param = json_decode($contentfile);
+    } else if (file_exists('saml_config.php')) {
         $contentfile = file_get_contents('saml_config.php');
-        $saml_param = json_decode($contentfile);    
+        $saml_param = json_decode($contentfile);
     } else {
         $saml_param = new stdClass();
     }
@@ -125,14 +128,14 @@
 if (isset($err) && !empty($err)) {
 
     require_once('error.php');
-    saml_error($err, false, $config->samllogfile);
+    auth_saml_error($err, false, $config->samllogfile);
 
     echo '
     <tr>
         <td class="center" colspan="4" style="background-color: red; color: white;text-">
     ';
     if(isset($err['reset'])) {
-        echo $err['reset'];        
+        echo $err['reset'];
     }
     else {
         print_string("auth_saml_form_error", "auth_saml");
