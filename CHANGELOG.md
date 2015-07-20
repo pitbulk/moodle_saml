@@ -2,6 +2,17 @@
 CHANGELOG
 =========
 
+Auth and Enrol plugins 07-20-2015
+---------------------------------
+
+* Replace deprecated methods.
+* Fix typo: Undefined $frm, $show_instructions,
+* Faster login process with new moodle api pre_loginpage_hook
+* Remove end PHP tags
+* Remove Moodle Global Variables
+* saml_config.json in web-root, instead of data-root
+* String "[[loginusing]]" was removed on Moodle. Added it to the plugin
+
 Auth plugin 11-07-2013
 ----------------------
 
