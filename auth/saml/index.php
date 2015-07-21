@@ -10,7 +10,10 @@ define('SAML_INTERNAL', 1);
         // We read saml parameters from a config file instead from the database
         // due we can not operate with the moodle database without load all
         // moodle session issue.
-        if (file_exists('saml_config.php')) {
+        if(file_exists($CFG->dataroot.'/saml_config.php')) {
+            $contentfile = file_get_contents($CFG->dataroot.'/saml_config.php');
+        }
+        else if (file_exists('saml_config.php')) {
             $contentfile = file_get_contents('saml_config.php');
         } else {
             throw(new Exception('SAML config params are not set.'));

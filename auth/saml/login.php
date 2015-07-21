@@ -1,7 +1,6 @@
 <?php
 
-include_once("/var/www/onelogindemo/moodle29/config.php");
-#include_once("../../config.php");
+include_once("../../config.php");
 
 global $CFG, $PAGE, $OUTPUT;
 
