@@ -2,16 +2,25 @@
 
 define('SAML_INTERNAL', 1);
 
-    // In order to avoid session problems we first do the SAML issues and then
-    // we log in and register the attributes of user
-
     try{
-        global $CFG;
+
+        // In order to avoid session problems we first do the SAML issues and then
+        // we log in and register the attributes of user, but we need to read the value of the $CFG->dataroot
+        $dataroot = null;
+        if (file_exists('../../config.php')) {
+            $config_content =  file_get_contents('../../config.php');
+
+            $matches = array();
+            if (preg_match("/[\$]CFG->dataroot[\s]*[\=][\s]*'([\w\/\-\_]*)'/i", $config_content, $matches)) {
+                $dataroot = $matches[1];
+            }
+        }
+
         // We read saml parameters from a config file instead from the database
         // due we can not operate with the moodle database without load all
         // moodle session issue.
-        if(file_exists($CFG->dataroot.'/saml_config.php')) {
-            $contentfile = file_get_contents($CFG->dataroot.'/saml_config.php');
+        if(isset($dataroot) && file_exists($dataroot.'/saml_config.php')) {
+            $contentfile = file_get_contents($dataroot.'/saml_config.php');
         }
         else if (file_exists('saml_config.php')) {
             $contentfile = file_get_contents('saml_config.php');
