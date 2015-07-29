@@ -2,6 +2,10 @@
 CHANGELOG
 =========
 
+Auth plugin 07-29-2015
+----------------------
+* Fix bug when reading $CFG->dataroot at index.php
+
 Auth and Enrol plugins 07-20-2015
 ---------------------------------
 
@@ -10,7 +14,7 @@ Auth and Enrol plugins 07-20-2015
 * Faster login process with new moodle api pre_loginpage_hook
 * Remove end PHP tags
 * Remove Moodle Global Variables
-* saml_config.json in web-root, instead of data-root
+* saml_config.php in web-root, instead of data-root
 * String "[[loginusing]]" was removed on Moodle. Added it to the plugin
 
 Auth plugin 11-07-2013
