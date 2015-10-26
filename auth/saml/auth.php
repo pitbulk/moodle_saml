@@ -27,11 +27,43 @@ require_once($CFG->libdir.'/authlib.php');
 class auth_plugin_saml extends auth_plugin_base {
 
     /**
+     * The SAML session index from the SP.
+     */
+    protected static $sessionIndex;
+
+    /**
+     * The SP.
+     */
+    protected static $sp;
+
+    /**
+     * Are we currently forcing log-out?
+     */
+    protected static $forcingLogout = FALSE;
+
+    /**
     * Constructor.
     */
     function auth_plugin_saml() {
-		$this->authtype = 'saml';
-		$this->config = get_config('auth/saml');
+        $this->authtype = 'saml';
+        $this->config = get_config('auth/saml');
+        // Include the autoloader since Moodle isn't a composer project itself.
+        require_once($this->config->samllib . '/_autoload.php');
+        if (empty(static::$sp)) {
+            static::$sp = new SimpleSAML_Auth_Simple($this->config->sp_source);
+        }
+        // Additionally determine if the user is still logged in to the SP.
+        global $USER;
+        global $SESSION;
+            if ($USER->loggedin && $USER->auth == "saml") {
+                if (!static::$forcingLogout
+                    &&(!static::$sp->isAuthenticated()
+                    || (static::$sp->getAuthData('saml:sp:SessionIndex') != $SESSION->auth_saml['SessionIndex']))) {
+                    // The user is logged in with the saml module but doesn't share a session on the SP.
+                    static::$forcingLogout = TRUE;
+                    require_logout();
+                }
+            }
     }
 
     /**
