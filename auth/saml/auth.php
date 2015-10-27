@@ -27,11 +27,6 @@ require_once($CFG->libdir.'/authlib.php');
 class auth_plugin_saml extends auth_plugin_base {
 
     /**
-     * The SAML session index from the SP.
-     */
-    protected static $sessionIndex;
-
-    /**
      * The SP.
      */
     protected static $sp;
@@ -57,8 +52,8 @@ class auth_plugin_saml extends auth_plugin_base {
         global $SESSION;
             if ($USER->loggedin && $USER->auth == "saml") {
                 if (!static::$forcingLogout
-                    &&(!static::$sp->isAuthenticated()
-                    || (static::$sp->getAuthData('saml:sp:SessionIndex') != $SESSION->auth_saml['SessionIndex']))) {
+                    && (!static::$sp->isAuthenticated()
+                    || (static::$sp->getAuthData('saml:sp:NameID') != $SESSION->auth_saml['NameID']))) {
                     // The user is logged in with the saml module but doesn't share a session on the SP.
                     static::$forcingLogout = TRUE;
                     require_logout();

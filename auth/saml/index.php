@@ -218,7 +218,7 @@ define('SAML_INTERNAL', 1);
         $USER->loggedin = true;
         $USER->site = $CFG->wwwroot;
         set_moodle_cookie($USER->username);
-      $SESSION->auth_saml['SessionIndex'] = $as->getAuthData('saml:sp:SessionIndex');
+        $SESSION->auth_saml['NameID'] = $as->getAuthData('saml:sp:NameID');
 
         if(isset($err) && !empty($err)) {
             auth_saml_error($err, $urltogo, $pluginconfig->samllogfile);
