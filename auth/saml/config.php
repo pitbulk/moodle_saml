@@ -285,8 +285,8 @@ if (isset($err) && !empty($err)) {
     <td class="right"><?php print_string("auth_saml_course_field_id", "auth_saml"); ?>:</td>
     <td>
        <select name="moodlecoursefieldid">
-            <option name="shortname" value="shortname" <?php if($config->moodlecoursefieldid == 'shortname') echo 'selected="selected"'; ?> >Short Name</option>
-            <option name="idnumber" value="idnumber" <?php if($config->moodlecoursefieldid == 'idnumber') echo 'selected="selected"'; ?> >Number ID</option>
+            <option name="shortname" value="shortname" <?php if($config->moodlecoursefieldid == 'mapping') echo 'selected="selected"'; ?> >Mapping</option>
+            <option name="idnumber" value="idnumber" <?php if($config->moodlecoursefieldid == 'idnumber') echo 'selected="selected"'; ?> >Course ID</option>
        </select>
     </td>
     <td><?php print_string("auth_saml_course_field_id_description", "auth_saml"); ?></td>
