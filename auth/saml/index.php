@@ -118,7 +118,8 @@ define('SAML_INTERNAL', 1);
     } else {
         // Valid session. Register or update user in Moodle, log him on, and redirect to Moodle front
         if (isset($pluginconfig->samlhookfile) && $pluginconfig->samlhookfile != '') {
-            include_once($pluginconfig->samlhookfile);
+            include_once('auth.php');
+            include_once(auth_plugin_saml::resolve_samlhookfile($pluginconfig->samlhookfile));
         }
 
         if (function_exists('saml_hook_attribute_filter')) {
