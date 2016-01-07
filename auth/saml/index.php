@@ -11,7 +11,7 @@ define('SAML_INTERNAL', 1);
             $config_content =  file_get_contents('../../config.php');
 
             $matches = array();
-            if (preg_match("/[\$]CFG->dataroot[\s]*[\=][\s]*'([\w\/\-\_]*)'/i", $config_content, $matches)) {
+            if (preg_match('/\$CFG->dataroot\s*=\s*["\'](.+)["\'];/i', $config_content, $matches)) {
                 $dataroot = $matches[1];
             }
         }
