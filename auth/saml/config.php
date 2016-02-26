@@ -153,7 +153,7 @@ if (isset($err) && !empty($err)) {
         <input name="samllib" type="text" size="30" value="<?php echo $saml_param->samllib; ?>" />
         <?php
         if (isset($err['samllib'])) {
-            formerr($err['samllib']);
+            $OUTPUT->error_text($err['samllib']);
         }
         ?>
     </td>
@@ -166,7 +166,7 @@ if (isset($err) && !empty($err)) {
         <input name="sp_source" type="text" size="10" value="<?php echo $saml_param->sp_source; ?>" />
         <?php
         if (isset($err['sp_source'])) {
-            formerr($err['sp_source']);
+            $OUTPUT->error_text($err['sp_source']);
         }
         ?>
     </td>
@@ -227,7 +227,7 @@ if (isset($err) && !empty($err)) {
        <input name="samlhookfile" type="text" size="30" value="<?php echo $config->samlhookfile; ?>" />
        <?php
             if (isset($err['samlhookerror'])) {
-                formerr('<p>' . $err['samlhookerror'] . '</p>');
+                $OUTPUT->error_text('<p>' . $err['samlhookerror'] . '</p>');
             }
        ?>
 
@@ -376,7 +376,7 @@ else {
 <div id="externalmapping">
     <?php
         if (isset($err['samlexternal'])) {
-            formerr($err['samlexternal']);
+            $OUTPUT->error_text($err['samlexternal']);
         }
     ?>
     <table id="externalmappinginfo" class="center">
