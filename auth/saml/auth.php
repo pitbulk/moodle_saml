@@ -206,8 +206,8 @@ class auth_plugin_saml extends auth_plugin_base {
 		        $err['samllib'] = get_string('auth_saml_errorbadlib', 'auth_saml', $form->samllib);
 	        }
 
-            if (isset($form->samlhookfile) && $form->samlhookfile != '' && !file_exists($form->samlhookfile)) {
-		        $err['samlhookerror'] = get_string('auth_saml_errorbadhook', 'auth_saml', $form->samlhookfile);
+            if (isset($form->samlhookfile) && $form->samlhookfile != '' && !file_exists(self::resolve_samlhookfile($form->samlhookfile))) {
+		        $err['samlhookerror'] = get_string('auth_saml_errorbadhook', 'auth_saml', self::resolve_samlhookfile($form->samlhookfile));
 	        }
 
 	        if ($form->supportcourses == 'external') {
@@ -639,4 +639,25 @@ class auth_plugin_saml extends auth_plugin_base {
 	    }
 	    return $sucess;
     }	   
+    
+    /**
+     * Get the absolute path to the SAML hook file.
+     * 
+     * @global stdClass $CFG
+     * @param string $path
+     *   The path to the SAML hook file, either absolute or relative to the 
+     *   directory root.
+     * @return string
+     *   The absolute path to the hook file.
+     */
+    public static function resolve_samlhookfile($path) {
+        global $CFG;
+        
+        if (strpos($path, '/') !== 0 && strpos($path, '\\') !== 0) {
+            // This is a relative path because it doesn't with an / or an \.
+            $path = $CFG->dirroot . DIRECTORY_SEPARATOR . $path;
+        } 
+        
+        return $path;
+    }
 }
