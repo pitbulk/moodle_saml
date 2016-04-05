@@ -207,7 +207,7 @@ define('SAML_INTERNAL', 1);
 
         $USER = complete_user_login($user);
 
-        if (function_exists('saml_hook_post_user_created')) {
+        if (function_exists('saml_hook_post_user_created') && !$user_exists && $USER->id) {
             saml_hook_post_user_created($USER);
         }
 
@@ -218,6 +218,7 @@ define('SAML_INTERNAL', 1);
         $USER->loggedin = true;
         $USER->site = $CFG->wwwroot;
         set_moodle_cookie($USER->username);
+        $SESSION->auth_saml['NameID'] = $as->getAuthData('saml:sp:NameID');
 
         if(isset($err) && !empty($err)) {
             auth_saml_error($err, $urltogo, $pluginconfig->samllogfile);
