@@ -14,7 +14,7 @@ $string['auth_saml_sp_source_description'] = 'Select the SP source you want to c
 $string['auth_saml_errorsp_source'] = "SimpleSAMLPHP sp source {\$a} is not correct";
 
 $string['auth_saml_db_reset_button'] = 'Reset values to factory settings';
-$string['auth_saml_db_reset_error'] = 'Error reseting the saml plugin values';
+$string['auth_saml_db_reset_error'] = 'Error resetting the saml plugin values';
 
 $string['auth_saml_form_error'] = 'It seems there are some errors in the form. Please, see below for correcting them';
 
@@ -27,6 +27,10 @@ $string['auth_saml_username_not_found'] = "IdP returned a set of data that no co
 
 $string['auth_saml_supportcourses'] = 'SAML support courses';
 $string['auth_saml_supportcourses_description'] = 'Select Internal or External to have Moodle auto enrol users in courses (Use External if your course/role mapping is in an external DB)';
+
+
+$string['auth_saml_disablejit'] = "Just-In-Time Provisioning";
+$string['auth_saml_disablejit_description'] = "Check it in order to disable the just-in-time provisioning. When jit is disabled, account will be not created";
 
 $string['auth_saml_syncusersfrom'] = 'Syncronize users from module';
 $string['auth_saml_syncusersfrom_description'] = 'Syncronize users into Moodle using another module. The users will be created with auth = \'saml\', even though they are actually synchronized by another module. 
@@ -52,6 +56,8 @@ $string['auth_saml_autologin_description'] = 'Automatically redirect to SAML idP
 
 $string['auth_saml_ignoreinactivecourses'] = 'Ignore Inactive Courses';
 $string['auth_saml_ignoreinactivecourses_description'] = "If not checked the plugin will unenroll the 'inactive' courses";
+
+$string['auth_saml_jit_not_active'] = "User account {\$a} does not exists and just-in-time provisioning is disabled";
 
 $string['auth_saml_not_authorize'] = "{\$a} has no active CAV course. ";
 

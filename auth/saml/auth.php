@@ -299,7 +299,7 @@ class auth_plugin_saml extends auth_plugin_base {
         $dbman = $DB->get_manager();
 
 	    if(isset($config->auth_saml_db_reset)) {
-	        $sql = "DELETE FROM ".$CFG->prefix."config_plugins WHERE plugin = 'auth/saml';";
+	        $sql = "DELETE FROM ".$CFG->prefix."config_plugins WHERE plugin = 'auth/saml'";
             try {
 	            $DB->execute($sql);
             }
@@ -387,6 +387,9 @@ class auth_plugin_saml extends auth_plugin_base {
 	    if (!isset ($config->externalrolemappingsql)) {
 	        $config->externalrolemappingsql = ''; 
 	    }
+            if (!isset ($config->disablejit)) {
+                $config->disablejit = false;
+            }
 
         // Save saml settings in a file
     	$saml_param_encoded = json_encode($saml_param);
@@ -409,6 +412,7 @@ class auth_plugin_saml extends auth_plugin_base {
 	    set_config('samlhookfile',        $config->samlhookfile,	'auth/saml');
 	    set_config('moodlecoursefieldid',   $config->moodlecoursefieldid,   'auth/saml');
 	    set_config('ignoreinactivecourses', $config->ignoreinactivecourses, 'auth/saml');
+            set_config('disablejit', $config->disablejit, 'auth/saml');
 
 	    if($config->supportcourses == 'external') {
 	        set_config('externalcoursemappingdsn',  $config->externalcoursemappingdsn,	'auth/saml');

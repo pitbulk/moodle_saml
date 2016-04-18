@@ -116,6 +116,10 @@
         $config->externalrolemappingsql = ''; 
     }
 
+    if (!isset ($config->disablejit)) {
+        $config->disablejit = false;
+    }
+
 ?>
 
 <div align="right">
@@ -253,6 +257,14 @@ if (isset($err) && !empty($err)) {
         </select>
     </td>
     <td><?php print_string("auth_saml_supportcourses_description", "auth_saml"); ?></td>
+</tr>
+
+<tr valign="top">
+    <td class="right"><?php print_string("auth_saml_disablejit", "auth_saml"); ?>:</td>
+    <td>
+        <input name="disablejit" type="checkbox" <?php if($config->disablejit) echo 'checked="CHECKED"'; ?> />
+    </td>
+    <td><?php print_string("auth_saml_disablejit_description", "auth_saml"); ?></td>
 </tr>
 
 <tr valign="top">

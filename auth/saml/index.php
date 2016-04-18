@@ -169,6 +169,12 @@ define('SAML_INTERNAL', 1);
             $user_exists = $user_exists && saml_hook_user_exists($username, $saml_attributes, $user_exists);
         }
 
+        if (!$user_exists && $pluginconfig->disablejit) {
+            $jit_not_active = get_string("auth_saml_jit_not_active", "auth_saml", $username);
+            $err['login'] = "<p>". $jit_not_active . "</p>";
+            auth_saml_error($err, '?logout', $pluginconfig->samllogfile);
+        }
+
         $authorize_user = true;
         $authorize_error = '';
 

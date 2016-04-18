@@ -50,6 +50,10 @@ $string['auth_saml_ignoreinactivecourses_description'] = "Si no está activado e
 
 $string['auth_saml_not_authorize'] = "{\$a} no tiene activo ningún curso del Campus Andaluz Virtual";
 
+$string['auth_saml_jit_not_active'] = "La cuenta {\$a} no existe y la provisión automática de usuarios está desabilitada";
+$string['auth_saml_disablejit'] = "Provisiomiento automático";
+$string['auth_saml_disablejit_description'] = "Marcalo para desabilitar el 'just-in-time provisioning', en cuyo caso las cuentas no serán creadas automáticamente";
+
 $string['auth_saml_error_executing'] = "Error al ejecutar ";
 
 $string['auth_saml_mapping_dsn_description'] = 'Cadena del Nombre del Origen de Datos (dsn) para conectar con la base de datos de la asignación de cursos/roles.
