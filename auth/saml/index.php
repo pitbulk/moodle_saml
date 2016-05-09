@@ -214,7 +214,7 @@ define('SAML_INTERNAL', 1);
         $USER = complete_user_login($user);
 
         if (function_exists('saml_hook_post_user_created')) {
-            saml_hook_post_user_created($USER);
+            saml_hook_post_user_created($USER, $saml_attributes);
         }
 
         if (isset($SESSION->wantsurl) && !empty($SESSION->wantsurl)) {
