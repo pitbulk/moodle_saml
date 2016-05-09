@@ -122,11 +122,12 @@ function saml_hook_authorize_user($username, $saml_attributes, $authorize_user) 
  name: saml_hook_post_user_created
  arguments:
    - $user: object containing the Moodle user
+   - $saml_attributes: array of SAML attributes
  return value:
    - nothing
  purpose: use this function if you want to make changes to the user object
           or update any external system for statistics or something similar.
 */
-function saml_hook_post_user_created($user) {
+function saml_hook_post_user_created($user, $saml_attributes = array()) {
 
 }
