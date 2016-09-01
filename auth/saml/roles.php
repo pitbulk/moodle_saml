@@ -30,7 +30,7 @@ function get_role_mapping_for_sync(&$err, $config) {
 
     $role_mapping = array();
     if($config->supportcourses == 'external') {
-        require_once ("DBNewConnection.php"); 
+        require_once ("DBNewConnection.php");
         $DB_mapping = DBNewConnection($config->externalrolemappingdsn);
         $rs = false;
         if($DB_mapping) {
@@ -78,7 +78,7 @@ function get_role_mapping_for_sync(&$err, $config) {
 
 
 function print_role_mapping_options($role_mapping, $config, $err) {
-    
+
     if(isset($err['role_mapping_db'])) {
         foreach ($err['role_mapping_db'] as $value) {
             echo '<tr><td colspan="4" style="color: red;text-align:center">';
@@ -94,7 +94,7 @@ function print_role_mapping_options($role_mapping, $config, $err) {
         }
         if (!empty($err['role_mapping']['lms'])) {
             echo get_string("auth_saml_duplicated_lms_data", "auth_saml") . implode(', ', $err['role_mapping']['lms']);
-        }	
+        }
         echo '</td></tr>';
     }
 
@@ -145,12 +145,12 @@ function print_role_mapping_options($role_mapping, $config, $err) {
 	        echo '<tr '.(empty($new_role_param[1])? 'style="display:none;"': ((isset($err['role_mapping']['lms']) && in_array($new_role_param[0], $err['role_mapping']['lms'])) || (isset($err['role_mapping']['saml']) && in_array($new_role_param[1], $err['role_mapping']['saml'])) ? 'style="background:red;"' : '')) .'>';
                 echo '<td colspan="2" style="padding-left: 38px;"><select id="newrole_select" name="new_role' . $i . '[]">';
                 foreach ($moodle_roles as $mrole) {
-                    $is_selected = $new_role_param[0] === $mrole; 
+                    $is_selected = $new_role_param[0] === $mrole;
                     echo '<option value="'. $mrole .'" ' . ($is_selected ? 'selected="selected"' : '') . ' >' . $mrole . '</option>';
                 }
                 echo '</select>';
                 echo '<input id="new_roles_total" type="hidden" name="new_roles_total" value="' . $i . '" /></td>';
-                echo '<td><input id="newrole_saml_id" type="text" name="new_role' . $i . '[]" value="' . $new_role_param[1] . '" /></td>';
+                echo '<td><input id="newrole_saml_id" type="text" name="new_role' . $i . '[]" value="' . (!empty($new_role_param[1]) ? $new_role_param[1] : '') . '" /></td>';
 	        echo '<td></td>';
 	        echo '</tr>';
                $i++;

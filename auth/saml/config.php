@@ -1,14 +1,10 @@
 <script src="../auth/saml/resources/moodle_saml.js" type="text/javascript"></script>
 
+
 <link rel="stylesheet" type="text/css" href="../auth/saml/resources/ui.theme.css" />
 <link rel="stylesheet" type="text/css" href="../auth/saml/resources/ui.core.css" />
 <link rel="stylesheet" type="text/css" href="../auth/saml/resources/ui.tabs.css" />
 <link rel="stylesheet" type="text/css" href="../auth/saml/resources/moodle_saml.css" />
-
-<script type="text/javascript" src="../auth/saml/resources/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../auth/saml/resources/jquery-ui-1.7.2.custom.min.js"></script>
-
-
 <?php
 /**
  * @author Erlend Strømsvik - Ny Media AS
@@ -103,17 +99,17 @@
     if (!isset ($config->ignoreinactivecourses)) {
         $config->ignoreinactivecourses = true;
     }
-    if (!isset ($config->externalcoursemappingdsn)) { 
-        $config->externalcoursemappingdsn = ''; 
+    if (!isset ($config->externalcoursemappingdsn)) {
+        $config->externalcoursemappingdsn = '';
     }
-    if (!isset ($config->externalrolemappingdsn)) { 
-        $config->externalrolemappingdsn = ''; 
+    if (!isset ($config->externalrolemappingdsn)) {
+        $config->externalrolemappingdsn = '';
     }
-    if (!isset ($config->externalcoursemappingsql)) { 
-        $config->externalcoursemappingsql = ''; 
+    if (!isset ($config->externalcoursemappingsql)) {
+        $config->externalcoursemappingsql = '';
     }
-    if (!isset ($config->externalrolemappingsql)) { 
-        $config->externalrolemappingsql = ''; 
+    if (!isset ($config->externalrolemappingsql)) {
+        $config->externalrolemappingsql = '';
     }
 
     if (!isset ($config->disablejit)) {
@@ -342,7 +338,7 @@ $(document).ready(function() {
 
 <div id="coursemapping">
 
-<?php 
+<?php
 
 if(isset($err['course_mapping_db']) && in_array("error_creating_course_mapping", $err['course_mapping_db'])) {
     echo '<span class="error">';
@@ -401,29 +397,29 @@ else {
                <input name="externalcoursemappingdsn" type="text" size="55" value="<?php echo $config->externalcoursemappingdsn; ?>" />
             </td>
         </tr>
-        <tr class="required">    
+        <tr class="required">
             <td class="right" valign="top"><?php print_string("auth_saml_course_mapping_sql", "auth_saml"); ?>:</td>
             <td>
-               <textarea name="externalcoursemappingsql" type="text" size="55" rows="3" cols="55"><?php echo $config->externalcoursemappingsql; ?></textarea>            
+               <textarea name="externalcoursemappingsql" type="text" size="55" rows="3" cols="55"><?php echo $config->externalcoursemappingsql; ?></textarea>
             </td>
         </tr>
         <tr valign="top">
             <td colspan="2"></td>
         </tr>
-        <tr class="required">    
+        <tr class="required">
             <td class="right"><?php print_string("auth_saml_role_mapping_dsn", "auth_saml"); ?>:</td>
             <td>
                <input name="externalrolemappingdsn" type="text" size="55" value="<?php echo $config->externalrolemappingdsn; ?>" />
             </td>
         </tr>
-        <tr class="required">    
+        <tr class="required">
             <td class="right" valign="top"><?php print_string("auth_saml_role_mapping_sql", "auth_saml"); ?>:</td>
             <td>
                <textarea name="externalrolemappingsql" type="text" size="55" rows="3" cols="55"><?php echo htmlspecialchars($config->externalrolemappingsql); ?></textarea>
             </td>
         </tr>
     </table>
-    <p>DSN and SQL examples:</p> 
+    <p>DSN and SQL examples:</p>
 <?php
     echo "<p>" . htmlspecialchars(get_string("auth_saml_mapping_dsn_examples", "auth_saml")) . "</p>";
     echo "<p>" . htmlspecialchars(get_string("auth_saml_mapping_sql_examples", "auth_saml")) . "</p>";
