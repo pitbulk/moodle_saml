@@ -23,6 +23,8 @@ Important for enrollment!!
 ==========================
 
 This plugin suppose that the IdP send the courses data of the user in a attribute that
-can be configured but the pattern of the expected data is always: 
-<course_id>:<period>:<role>:<status>
+can be configured but the pattern of the expected data is always defined per the RFC:
+https://tools.ietf.org/html/rfc6338
+e.g.,
+urn:mace:terena.org:schac:userStatus:(.+):(.+):(.+):(.+):(.+):(.+)
 You can change this pattern editing the file auth/saml/course_mapping.php
